@@ -13,6 +13,7 @@ const ProtectedRoute = ({ allowedRoles = [] }) => {
         const redirectPath = user.role === 'Admin' ? '/admin/dashboard' : '/stores';
         return <Navigate to={redirectPath} replace />;
     }
+
     return <Outlet />;
 };
 

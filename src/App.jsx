@@ -2,14 +2,15 @@ import React from 'react';
 import { Routes, Route, Navigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Header from './components/common/Header';
-import ProtectedRoute from './components/common/ProtectedRoute'; 
+import ProtectedRoute from './components/common/ProtectedRoute';
+
 import LoginPage from './pages/auth/LoginPage';
 import SignupPage from './pages/auth/SignupPage';
+import AdminDashboard from './pages/AdminDashboard';
+import UserStoreList from './pages/UserStoreList';
+import OwnerDashboard from './pages/OwnerDashboard';
+import ChangePasswordPage from './pages/ChangePasswordPage';
 
-const AdminDashboard = () => <h1 className="text-3xl font-bold p-6">Admin Dashboard</h1>;
-const UserStoreList = () => <h1 className="text-3xl font-bold p-6">Store Listings (Normal User)</h1>;
-const OwnerDashboard = () => <h1 className="text-3xl font-bold p-6">Owner Dashboard</h1>;
-const ChangePasswordPage = () => <h1 className="text-3xl font-bold p-6">Change Password</h1>;
 const NotFound = () => (
     <div className="text-center p-20 text-xl font-semibold">
         404 | Page Not Found. <Link to="/" className="text-indigo-600 hover:underline">Go Home</Link>

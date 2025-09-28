@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { jwtDecode } from 'jwt-decode';
 import axiosBase from '../../api/axiosBase';
 
+// Token Decoding Utility
 const decodeToken = () => {
     const token = localStorage.getItem('token');
     if (!token) return { user: null, token: null };
@@ -29,7 +30,7 @@ const initialState = {
     error: null,
 };
 
-// --- Async Thunks (API call definitions) ---
+// Async Thunks
 export const loginUser = createAsyncThunk(
     'auth/login',
     async (credentials, { rejectWithValue }) => {
@@ -54,6 +55,7 @@ export const registerUser = createAsyncThunk(
     }
 );
 
+// Auth Slice
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -67,12 +69,14 @@ const authSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
+        // Handle PENDING and REJECTED for both login and register
         [loginUser, registerUser].forEach(thunk => {
             builder
                 .addCase(thunk.pending, (state) => { state.isLoading = true; state.error = null; })
                 .addCase(thunk.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; });
         });
         
+        // Login success logic
         builder.addCase(loginUser.fulfilled, (state, action) => {
             const { token } = action.payload;
             localStorage.setItem('token', token);
@@ -82,6 +86,7 @@ const authSlice = createSlice({
             state.isLoading = false;
             state.error = null;
         });
+        // Register success logic
         builder.addCase(registerUser.fulfilled, (state) => { state.isLoading = false; state.error = null; });
     },
 });

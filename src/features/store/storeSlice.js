@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axiosBase from '../../api/axiosBase';
 
+
 export const fetchStores = createAsyncThunk(
     'stores/fetchAll',
     async (params = {}, { rejectWithValue }) => {
@@ -41,10 +42,7 @@ const storeSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchStores.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-            })
+            .addCase(fetchStores.pending, (state) => { state.isLoading = true; state.error = null; })
             .addCase(fetchStores.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.list = action.payload; 
@@ -56,7 +54,6 @@ const storeSlice = createSlice({
             .addCase(submitRating.fulfilled, (state, action) => {
                 state.statusMessage = action.payload.message;
                 const { store_id, rating_value } = action.payload;
-                
                 const index = state.list.findIndex(store => store.store_id === store_id);
                 if (index !== -1) {
                     state.list[index].user_submitted_rating = rating_value; 
