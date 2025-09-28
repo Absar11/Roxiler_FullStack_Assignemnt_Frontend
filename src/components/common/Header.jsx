@@ -28,12 +28,19 @@ const Header = () => {
                 </Link>
                 
                 <div className="flex items-center space-x-4">
-                    {isAuthenticated ? (
+                    {isAuthenticated && user ? (
                         <>
                             <span className="text-sm font-medium hidden sm:inline">
-                                {user.role} | {user.name.split(' ')[0]}
+                                {user.role} | {user.name?.split(' ')[0]} 
                             </span>
                             
+                            <Link 
+                                to="/change-password" 
+                                className="hover:text-indigo-200 transition text-sm"
+                            >
+                                Update Password
+                            </Link>
+
                             <button
                                 onClick={handleLogout}
                                 className="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-sm transition"
